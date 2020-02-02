@@ -9,4 +9,14 @@ const indexRouter = require('./routes/index');
 app.use(express.json());
 app.use('/', indexRouter);
 
+// 404
+app.use((req, res) => {
+    return res.status(404).send({ error: 'Page ' + req.url + ' Not found.' });
+});
+
+// 500 - Any server error
+app.use((err, req, res) => {
+    return res.status(500).send({ error: err });
+});
+
 app.listen(port, () => console.log(`Listening on port ${port}`));
