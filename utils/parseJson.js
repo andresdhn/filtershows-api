@@ -3,7 +3,7 @@
 //      returns: Boolean valid JSON format
 const paseJson = str => {
     try {
-        JSON.parse(str);
+        JSON.parse(JSON.stringify(str));
     } catch (e) {
         return false;
     }

@@ -16,8 +16,21 @@ router.delete('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    let newData = filter(req.body);
-    res.status(200).json(newData);
+    // Check invalid JSON format
+    if (!parseJson(req.body)) {
+        return res
+            .status(400)
+            .json({ error: 'Could not decode request: JSON parsing failed' });
+    }
+
+    try {
+        let newData = filter(req.body);
+        return res.status(200).json(newData);
+    } catch (err) {
+        return res
+            .status(400)
+            .json({ error: 'Could not decode request: JSON parsing failed' });
+    }
 });
 
 module.exports = router;

@@ -6,7 +6,10 @@ const port = process.env.PORT;
 
 const indexRouter = require('./routes/index');
 
+// Midlewares
 app.use(express.json());
+
+// Root
 app.use('/', indexRouter);
 
 // 404
