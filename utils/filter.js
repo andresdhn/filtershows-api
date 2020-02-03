@@ -2,7 +2,7 @@
 //    returns: filtered JSON data
 const filter = data => {
     return {
-        respose: data.payload
+        response: data.payload
             .filter(show => show.drm === true && show.episodeCount > 0)
             .map(data => ({
                 image: data.image.showImage,

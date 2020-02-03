@@ -273,7 +273,7 @@ axios({
     data: data,
 })
     .then(res => {
-        console.log(res.headers);
+        console.log(res.data);
 
         // handle Res
     })
