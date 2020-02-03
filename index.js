@@ -24,16 +24,15 @@ express()
     .post('/', (req, res) => {
         // Filter request
         let data = req.body;
-        let newData = {
-            response: data.payload
-                .filter(show => show.drm === true && show.episodeCount > 0)
-                .map(data => ({
-                    image: data.image.showImage,
-                    slug: data.slug,
-                    title: data.title,
-                })),
-        };
-        res.status(200).json(JSON.stringify(newData));
+        let newData = data.payload
+            .filter(show => show.drm === true && show.episodeCount > 0)
+            .map(data => ({
+                image: data.image.showImage,
+                slug: data.slug,
+                title: data.title,
+            }));
+
+        res.json(JSON.stringify({ response: newData }));
     })
     .all((req, res) => res.status(405).sed())
     .listen(PORT, () => console.log(`Listening on port ${PORT}`));
