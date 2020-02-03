@@ -1,4 +1,5 @@
 const axios = require('axios');
+const dotenv = require('dotenv').config();
 const data = {
     payload: [
         {
@@ -258,12 +259,17 @@ const data = {
     totalRecords: 75,
 };
 
+const URL =
+    process.env.ENV === 'production'
+        ? 'https://filter-shows.herokuapp.com/'
+        : 'http://127.0.0.1:8080/';
+
 axios({
     method: 'post',
     headers: {
         'Content-Type': 'application/json',
     },
-    url: 'http://127.0.0.1:8080/',
+    url: URL,
     data: data,
 })
     .then(res => {

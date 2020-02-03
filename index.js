@@ -18,7 +18,7 @@ const handleRequest = (req, res) => {
     try {
         // Filter request
         let newData = filter(req.body);
-        return res.status(200).json(newData);
+        return res.status(200).json(JSON.stringify(newData));
     } catch (err) {
         return res
             .status(400)
