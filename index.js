@@ -15,23 +15,13 @@ const handleRequest = (req, res) => {
             .json({ error: 'Could not decode request: JSON parsing failed' });
     }
 
-    try {
-        // Filter request
-        let newData = filter(req.body);
-        return res.status(200).json(JSON.stringify(newData));
-    } catch (err) {
-        return res
-            .status(400)
-            .json({ error: 'Could not decode request: JSON parsing failed' });
-    }
+    // Filter request
+    let newData = JSON.stringify(filter(req.body));
+    return res.json(newData);
 };
 
 express()
     .use(express.json())
     .post('/', handleRequest)
-    .all((req, res) =>
-        res
-            .status(400)
-            .json({ error: 'Could not decode request: JSON parsing failed' })
-    )
+    .all((req, res) => res.status(405).sed())
     .listen(PORT, () => console.log(`Listening on port ${PORT}`));
