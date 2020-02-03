@@ -12,7 +12,11 @@ const handleRequest = (req, res) => {
     if (!parseJson(req.body)) {
         return res
             .status(400)
-            .json({ error: 'Could not decode request: JSON parsing failed' });
+            .json({
+                response: {
+                    error: 'Could not decode request: JSON parsing failed',
+                },
+            });
     }
 
     // Filter request
