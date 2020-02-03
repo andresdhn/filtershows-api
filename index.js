@@ -1,13 +1,13 @@
 const express = require('express');
-const router = express.Router();
-const parseJson = require('../utils/parseJson');
-const filter = require('../utils/filter');
-
-router.get('/', (req, res) => {
-    res.send({ response: 'Invalid request' });
+const dotenv = require('dotenv').config({
+    silent: process.env.NODE_ENV === 'production',
 });
+const PORT = process.env.PORT || 8080;
 
-router.post('/', (req, res) => {
+const parseJson = require('./utils/parseJson');
+const filter = require('./utils/filter');
+
+const handleRequest = (req, res) => {
     // Check invalid JSON format
     if (!parseJson(req.body)) {
         return res
@@ -16,6 +16,7 @@ router.post('/', (req, res) => {
     }
 
     try {
+        // Filter request
         let newData = filter(req.body);
         return res.status(200).json(newData);
     } catch (err) {
@@ -23,6 +24,10 @@ router.post('/', (req, res) => {
             .status(400)
             .json({ error: 'Could not decode request: JSON parsing failed' });
     }
-});
+};
 
-module.exports = router;
+express()
+    .use(express.json())
+    .post('/', handleRequest)
+    .all((req, res) => res.status(405).sed())
+    .listen(PORT, () => console.log(`Listening on port ${PORT}`));

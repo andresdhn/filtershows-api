@@ -1,6 +1,5 @@
 // ParseJson.js
-// Utitlity function
-//      returns: Boolean valid JSON format
+//    returns: Boolean valid JSON format
 const paseJson = str => {
     try {
         JSON.parse(JSON.stringify(str));

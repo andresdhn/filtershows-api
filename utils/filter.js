@@ -1,6 +1,5 @@
 // Filter.js
-// Utitlity function
-//      returns: filtered JSON data
+//    returns: filtered JSON data
 const filter = data => {
     return {
         respose: data.payload
