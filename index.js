@@ -32,7 +32,7 @@ express()
                 title: data.title,
             }));
 
-        res.json(JSON.stringify({ response: newData }));
+        res.json({ response: newData });
     })
     .all((req, res) => res.status(405).sed())
     .listen(PORT, () => console.log(`Listening on port ${PORT}`));
