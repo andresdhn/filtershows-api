@@ -1,7 +1,9 @@
-const dotenv = require('dotenv').config();
+const dotenv = require('dotenv').config({
+    silent: process.env.NODE_ENV === 'production',
+});
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 const indexRouter = require('./routes/index');
 
