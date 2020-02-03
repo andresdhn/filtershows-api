@@ -9,15 +9,13 @@ const filter = require('./utils/filter');
 
 const handleRequest = (req, res) => {
     // Check invalid JSON format
-    if (!parseJson(req.body)) {
-        return res
-            .status(400)
-            .json({
-                response: {
-                    error: 'Could not decode request: JSON parsing failed',
-                },
-            });
-    }
+    // if (!parseJson(req.body)) {
+    //     return res.status(400).json({
+    //         response: {
+    //             error: 'Could not decode request: JSON parsing failed',
+    //         },
+    //     });
+    // }
 
     // Filter request
     let newData = JSON.stringify(filter(req.body));
@@ -25,7 +23,20 @@ const handleRequest = (req, res) => {
 };
 
 express()
-    .use(express.json())
+    .use(
+        express.json({
+            verify: (req, res, buf, encoding) => {
+                try {
+                    JSON.parse(buf);
+                } catch (e) {
+                    res.status(400).json({
+                        error: 'Could not decode request: JSON parsing failed',
+                    });
+                    throw Error('invalid JSON');
+                }
+            },
+        })
+    )
     .post('/', handleRequest)
     .all((req, res) => res.status(405).sed())
     .listen(PORT, () => console.log(`Listening on port ${PORT}`));
