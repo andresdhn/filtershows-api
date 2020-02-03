@@ -4,8 +4,6 @@ const dotenv = require('dotenv').config({
 });
 const PORT = process.env.PORT || 8080;
 
-// const filter = require('./utils/filter');
-
 express()
     .use(
         express.json({
