@@ -7,14 +7,6 @@ router.get('/', (req, res) => {
     res.send({ response: 'Invalid request' });
 });
 
-router.put('/', (req, res) => {
-    res.send({ response: 'Invalid request' });
-});
-
-router.delete('/', (req, res) => {
-    res.send({ response: 'Invalid request' });
-});
-
 router.post('/', (req, res) => {
     // Check invalid JSON format
     if (!parseJson(req.body)) {
