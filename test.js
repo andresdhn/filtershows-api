@@ -273,8 +273,8 @@ axios({
     data: data,
 })
     .then(res => {
-        console.log(`statusCode: ${res.status}`);
-        console.log(res.data);
+        console.log(res.headers);
+
         // handle Res
     })
     .catch(error => {

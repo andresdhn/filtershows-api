@@ -29,5 +29,9 @@ const handleRequest = (req, res) => {
 express()
     .use(express.json())
     .post('/', handleRequest)
-    .all((req, res) => res.status(405).sed())
+    .all((req, res) =>
+        res
+            .status(400)
+            .json({ error: 'Could not decode request: JSON parsing failed' })
+    )
     .listen(PORT, () => console.log(`Listening on port ${PORT}`));
